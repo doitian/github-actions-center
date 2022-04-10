@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Package Git Repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Git Repository'
+        required: true
+        type: string
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone
+        run: git clone --mirror ${{ github.event.inputs.repo }} repo.git
+
+      - name: Package
+        uses: actions/upload-artifact@v3
+        with:
+          name: repo.git
+          path: repo.git
